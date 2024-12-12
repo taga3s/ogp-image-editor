@@ -10,12 +10,12 @@ const HomePresenter = () => {
   };
 
   return (
-    <div class="flex">
+    <div class="flex flex-col">
+      <OGPMakerPanel selectedImgSrcSignal={imgSrcSignal} />
       <OGPTemplateList
         handleImgSrc={handleImgSrc}
         selectedImgSrcSignal={imgSrcSignal}
       />
-      <OGPMakerPanel selectedImgSrcSignal={imgSrcSignal} />
     </div>
   );
 };

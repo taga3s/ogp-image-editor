@@ -5,7 +5,11 @@ type Data = {
   imgSrc: string;
 };
 
-const SAMPLE_DATA: Data[] = [];
+const OGP_TEMPLATE_DATA: Data[] = [
+  {
+    imgSrc: "/ogp-template1.png",
+  },
+];
 
 interface Props {
   selectedImgSrcSignal: Signal<string>;
@@ -15,9 +19,9 @@ const OGPTemplateList = (props: Props) => {
   const { selectedImgSrcSignal, handleImgSrc } = props;
 
   return (
-    <div class="h-[480px] p-6 m-8 border-2 rounded-md overflow-y-auto">
-      <ul class="flex flex-col items-center gap-8 w-56">
-        {SAMPLE_DATA.map((item) => (
+    <div class="p-6 mx-auto max-w-[800px] w-full border-2 rounded-md">
+      <ul class="flex items-center gap-8">
+        {OGP_TEMPLATE_DATA.map((item) => (
           <OGPTemplateItem
             key={item.imgSrc}
             imgSrc={item.imgSrc}

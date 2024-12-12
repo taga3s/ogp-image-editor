@@ -7,6 +7,7 @@ export default function Home() {
     <div>
       <Header />
       <HomePresenter />
+      <div class="mt-8" />
       <Footer />
     </div>
   );
