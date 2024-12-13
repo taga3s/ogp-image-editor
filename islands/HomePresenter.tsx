@@ -1,6 +1,6 @@
 import { useSignal } from "@preact/signals";
-import { OGPMakerPanel } from "../components/OGPMakerPanel.tsx";
-import { OGPTemplateList } from "../components/OGPTemplateList.tsx";
+import { OGPMakerPanel } from "../components/OGPMakerPanel/OGPMakerPanel.tsx";
+import { OGPTemplate } from "../components/OGPTemplate/OGPTemplate.tsx";
 
 const HomePresenter = () => {
   const imgSrcSignal = useSignal<string>("");
@@ -12,7 +12,7 @@ const HomePresenter = () => {
   return (
     <div class="flex flex-col">
       <OGPMakerPanel selectedImgSrcSignal={imgSrcSignal} />
-      <OGPTemplateList
+      <OGPTemplate
         handleImgSrc={handleImgSrc}
         selectedImgSrcSignal={imgSrcSignal}
       />

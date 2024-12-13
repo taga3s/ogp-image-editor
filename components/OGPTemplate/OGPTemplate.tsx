@@ -11,11 +11,11 @@ const OGP_TEMPLATE_DATA: Data[] = [
   },
 ];
 
-interface Props {
+type Props = {
   selectedImgSrcSignal: Signal<string>;
   handleImgSrc: (imgSrc: string) => void;
-}
-const OGPTemplateList = (props: Props) => {
+};
+const OGPTemplate = (props: Props) => {
   const { selectedImgSrcSignal, handleImgSrc } = props;
 
   return (
@@ -34,4 +34,4 @@ const OGPTemplateList = (props: Props) => {
   );
 };
 
-export { OGPTemplateList };
+export { OGPTemplate };
