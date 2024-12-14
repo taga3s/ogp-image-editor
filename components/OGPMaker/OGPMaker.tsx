@@ -1,29 +1,14 @@
-import { OGPMakerPanelSelectedImage } from "./OGPMakerPanelSelectedImage.tsx";
-import { OGPMakerPanelEditBox } from "./OGPMakerPanelCustomizeBox.tsx";
+import { OGPMakerBaseImage } from "./OGPMakerBaseImage.tsx";
+import { OGPMakerCustomizeBox } from "./OGPMakerCustomizeBox.tsx";
 import { useState } from "preact/hooks";
 import { ogpTemplateSignal } from "../../signals/ogpTemplateSignal.ts";
+import { textBoxesSignal } from "../../signals/textBoxesSignal.ts";
 
-export type TextBox = {
-  id: string;
-  text: string;
-  x: number;
-  y: number;
-  fontSize: number;
-  color: string;
-};
-
-const OGPMakerPanel = () => {
-  const [textBoxes, setTextBoxes] = useState<TextBox[]>([]);
+const OGPMaker = () => {
   const [selectedTextBoxId, setSelectedTextBoxId] = useState<string>("");
 
   const { ogpTemplate } = ogpTemplateSignal();
-
-  const handleAddTextBox = (textBox: TextBox) => {
-    setTextBoxes([
-      ...textBoxes,
-      textBox,
-    ]);
-  };
+  const { textBoxes } = textBoxesSignal();
 
   const handleSetSelectedTextBoxId = (id: string) => {
     setSelectedTextBoxId(id);
@@ -35,17 +20,16 @@ const OGPMakerPanel = () => {
 
   return (
     <div class="flex justify-between items-center mx-auto">
-      <OGPMakerPanelSelectedImage
+      <OGPMakerBaseImage
         imgSrc={ogpTemplate ? ogpTemplate.imgSrc : ""}
         textBox={selectedTextBox}
       />
-      <OGPMakerPanelEditBox
-        textBoxes={textBoxes}
-        handleAddTextBox={handleAddTextBox}
+      <OGPMakerCustomizeBox
+        selectedTextBoxId={selectedTextBoxId}
         handleSetSelectedTextBoxId={handleSetSelectedTextBoxId}
       />
     </div>
   );
 };
 
-export { OGPMakerPanel };
+export { OGPMaker };

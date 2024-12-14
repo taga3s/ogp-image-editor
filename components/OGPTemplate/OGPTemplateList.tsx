@@ -11,10 +11,10 @@ const OGP_TEMPLATE_DATA: OGPTemplateData[] = [
   },
 ];
 
-const OGPTemplate = () => {
+const OGPTemplateList = () => {
   const { ogpTemplate, setOgpTemplate } = ogpTemplateSignal();
   return (
-    <div class="p-6 mx-auto max-w-[800px] w-full border-2 rounded-md">
+    <div class="p-6 mx-auto max-w-[800px] w-full border-2 shadow rounded-md">
       <ul class="flex items-center gap-8">
         {OGP_TEMPLATE_DATA.map((item) => (
           <OGPTemplateItem
@@ -30,4 +30,4 @@ const OGPTemplate = () => {
   );
 };
 
-export { OGPTemplate };
+export { OGPTemplateList };

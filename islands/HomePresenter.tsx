@@ -1,11 +1,11 @@
-import { OGPMakerPanel } from "../components/OGPMakerPanel/OGPMakerPanel.tsx";
-import { OGPTemplate } from "../components/OGPTemplate/OGPTemplate.tsx";
+import { OGPMaker } from "../components/OGPMaker/OGPMaker.tsx";
+import { OGPTemplateList } from "../components/OGPTemplate/OGPTemplateList.tsx";
 
 const HomePresenter = () => {
   return (
     <div class="flex flex-col">
-      <OGPMakerPanel />
-      <OGPTemplate />
+      <OGPMaker />
+      <OGPTemplateList />
     </div>
   );
 };
