@@ -1,11 +1,7 @@
-import type { Signal } from "@preact/signals";
 import { OGPMakerPanelSelectedImage } from "./OGPMakerPanelSelectedImage.tsx";
 import { OGPMakerPanelEditBox } from "./OGPMakerPanelCustomizeBox.tsx";
 import { useState } from "preact/hooks";
-
-type Props = {
-  selectedImgSrcSignal: Signal<string>;
-};
+import { ogpTemplateSignal } from "../../signals/ogpTemplateSignal.ts";
 
 export type TextBox = {
   id: string;
@@ -16,11 +12,11 @@ export type TextBox = {
   color: string;
 };
 
-const OGPMakerPanel = (props: Props) => {
-  const { selectedImgSrcSignal } = props;
-
+const OGPMakerPanel = () => {
   const [textBoxes, setTextBoxes] = useState<TextBox[]>([]);
   const [selectedTextBoxId, setSelectedTextBoxId] = useState<string>("");
+
+  const { ogpTemplate } = ogpTemplateSignal();
 
   const handleAddTextBox = (textBox: TextBox) => {
     setTextBoxes([
@@ -40,8 +36,7 @@ const OGPMakerPanel = (props: Props) => {
   return (
     <div class="flex justify-between items-center mx-auto">
       <OGPMakerPanelSelectedImage
-        isImageSelected={selectedImgSrcSignal.value !== ""}
-        imgSrc={selectedImgSrcSignal.value}
+        imgSrc={ogpTemplate ? ogpTemplate.imgSrc : ""}
         textBox={selectedTextBox}
       />
       <OGPMakerPanelEditBox

@@ -1,32 +1,28 @@
-import type { Signal } from "@preact/signals";
 import { OGPTemplateItem } from "./OGPTemplateItem.tsx";
+import {
+  type OGPTemplateData,
+  ogpTemplateSignal,
+} from "../../signals/ogpTemplateSignal.ts";
 
-type Data = {
-  imgSrc: string;
-};
-
-const OGP_TEMPLATE_DATA: Data[] = [
+const OGP_TEMPLATE_DATA: OGPTemplateData[] = [
   {
+    id: 1,
     imgSrc: "/ogp-template1.png",
   },
 ];
 
-type Props = {
-  selectedImgSrcSignal: Signal<string>;
-  handleImgSrc: (imgSrc: string) => void;
-};
-const OGPTemplate = (props: Props) => {
-  const { selectedImgSrcSignal, handleImgSrc } = props;
-
+const OGPTemplate = () => {
+  const { ogpTemplate, setOgpTemplate } = ogpTemplateSignal();
   return (
     <div class="p-6 mx-auto max-w-[800px] w-full border-2 rounded-md">
       <ul class="flex items-center gap-8">
         {OGP_TEMPLATE_DATA.map((item) => (
           <OGPTemplateItem
-            key={item.imgSrc}
+            key={item.id}
+            numbering={item.id}
             imgSrc={item.imgSrc}
-            isSelected={selectedImgSrcSignal.value === item.imgSrc}
-            onClick={() => handleImgSrc(item.imgSrc)}
+            isSelected={ogpTemplate?.id === item.id}
+            onClick={() => setOgpTemplate(item)}
           />
         ))}
       </ul>

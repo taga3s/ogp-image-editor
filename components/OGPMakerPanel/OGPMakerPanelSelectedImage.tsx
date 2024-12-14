@@ -1,13 +1,15 @@
 import type { TextBox } from "./OGPMakerPanel.tsx";
 
 type Props = {
-  isImageSelected: boolean;
   imgSrc: string;
   textBox: TextBox | undefined;
 };
 
 const OGPMakerPanelSelectedImage = (props: Props) => {
-  const { isImageSelected, imgSrc, textBox } = props;
+  const { imgSrc, textBox } = props;
+
+  const isImageSelected = imgSrc !== "";
+
   return (
     <div class="flex flex-col items-center justify-center w-[960px] min-h-[600px] p-8">
       {isImageSelected
@@ -16,7 +18,7 @@ const OGPMakerPanelSelectedImage = (props: Props) => {
             {textBox
               ? (
                 <div
-                  class={"absolute"}
+                  class="absolute"
                   style={`top:${textBox.y}px;left:${textBox.x}px;`}
                 >
                   {textBox.text}
