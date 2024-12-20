@@ -1,14 +1,12 @@
-import { ogpTemplateSignal } from "../../signals/ogpTemplateSignal.ts";
+import { selectedOgpTemplateSignal } from "../../signals/ogpTemplateSignal.ts";
 import {
   type TextBox,
   textBoxesSignal,
 } from "../../signals/textBoxesSignal.ts";
+import {
+  selectedTextBoxIdSignal,
+} from "../../signals/selectedTextBoxIdSignal.ts";
 import { SquareIcon } from "../icons/SquareIcon.tsx";
-
-type Props = {
-  selectedTextBoxId: string;
-  handleSetSelectedTextBoxId: (id: string) => void;
-};
 
 const NEW_TEXT_BOX: Omit<TextBox, "id"> = {
   text: "タイトル",
@@ -19,10 +17,10 @@ const NEW_TEXT_BOX: Omit<TextBox, "id"> = {
   color: "#000000",
 };
 
-const OGPMakerCustomizeBox = (props: Props) => {
-  const { selectedTextBoxId, handleSetSelectedTextBoxId } = props;
-  const { ogpTemplate } = ogpTemplateSignal();
+const OGPMakerCustomizeBox = () => {
+  const { selectedOgpTemplate } = selectedOgpTemplateSignal();
   const { textBoxes, setTextBoxes } = textBoxesSignal();
+  const { selectedTextBoxId, setSelectedTextBoxId } = selectedTextBoxIdSignal();
 
   const selectedTextBox = textBoxes.find((textBox) => {
     return textBox.id === selectedTextBoxId;
@@ -64,6 +62,10 @@ const OGPMakerCustomizeBox = (props: Props) => {
     ]);
   };
 
+  const handleSetSelectedTextBoxId = (id: string) => {
+    setSelectedTextBoxId(id);
+  };
+
   return (
     <div class="w-[320px] h-96 p-4 border-2 shadow rounded-md">
       <button
@@ -77,7 +79,7 @@ const OGPMakerCustomizeBox = (props: Props) => {
           }]);
           handleSetSelectedTextBoxId(id);
         }}
-        disabled={ogpTemplate === undefined}
+        disabled={selectedOgpTemplate === undefined}
       >
         <div class="w-5">
           <SquareIcon />

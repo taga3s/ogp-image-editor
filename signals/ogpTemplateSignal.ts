@@ -7,10 +7,10 @@ export type OGPTemplateData = {
 
 const store = signal<OGPTemplateData | undefined>(undefined);
 
-export const ogpTemplateSignal = () => {
+export const selectedOgpTemplateSignal = () => {
   return {
-    ogpTemplate: store.value,
-    setOgpTemplate: (data: OGPTemplateData) => {
+    selectedOgpTemplate: store.value,
+    setSelectedOgpTemplate: (data: OGPTemplateData) => {
       store.value = data;
     },
   };

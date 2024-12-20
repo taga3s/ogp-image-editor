@@ -1,7 +1,7 @@
 import { OGPTemplateItem } from "./OGPTemplateItem.tsx";
 import {
   type OGPTemplateData,
-  ogpTemplateSignal,
+  selectedOgpTemplateSignal,
 } from "../../signals/ogpTemplateSignal.ts";
 
 const OGP_TEMPLATE_DATA: OGPTemplateData[] = [
@@ -12,7 +12,8 @@ const OGP_TEMPLATE_DATA: OGPTemplateData[] = [
 ];
 
 const OGPTemplateList = () => {
-  const { ogpTemplate, setOgpTemplate } = ogpTemplateSignal();
+  const { selectedOgpTemplate, setSelectedOgpTemplate } =
+    selectedOgpTemplateSignal();
   return (
     <div class="p-6 mx-auto max-w-[800px] w-full border-2 shadow rounded-md">
       <ul class="flex items-center gap-8">
@@ -21,8 +22,8 @@ const OGPTemplateList = () => {
             key={item.id}
             numbering={item.id}
             imgSrc={item.imgSrc}
-            isSelected={ogpTemplate?.id === item.id}
-            onClick={() => setOgpTemplate(item)}
+            isSelected={selectedOgpTemplate?.id === item.id}
+            onClick={() => setSelectedOgpTemplate(item)}
           />
         ))}
       </ul>
