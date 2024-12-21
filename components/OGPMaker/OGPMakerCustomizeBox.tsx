@@ -15,7 +15,7 @@ const TEXT_BOX_BASE_VALUE: Omit<TextBox, "id" | "textBoxColor"> = {
   y: 64,
   fontSize: 32,
   fontWeight: "bold",
-  color: "#000000",
+  fontColor: "#000000",
 };
 
 const OGPMakerCustomizeBox = () => {
@@ -146,14 +146,14 @@ const OGPMakerCustomizeBox = () => {
                   カラー{" "}
                   <input
                     type="color"
-                    value={selectedTextBox?.color}
+                    value={selectedTextBox?.fontColor}
                     onInput={(e) => {
                       handleEditTextBox(selectedTextBoxId, {
-                        color: e.currentTarget.value,
+                        fontColor: e.currentTarget.value,
                       });
                     }}
                   />
-                  <span>{selectedTextBox?.color}</span>
+                  <span>{selectedTextBox?.fontColor}</span>
                 </label>
               </div>
             </li>

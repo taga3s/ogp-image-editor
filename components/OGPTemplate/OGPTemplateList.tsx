@@ -7,7 +7,7 @@ import {
 const OGP_TEMPLATE_DATA: OGPTemplateData[] = [
   {
     id: 1,
-    imgSrc: "/ogp-template1.png",
+    imgSrc: "ogp-template1.png",
   },
 ];
 

@@ -7,7 +7,7 @@ export type TextBox = {
   y: number;
   fontSize: number;
   fontWeight: "normal" | "medium" | "bold";
-  color: string;
+  fontColor: string;
   textBoxColor: string;
 };
 

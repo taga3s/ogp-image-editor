@@ -75,7 +75,7 @@ const OGPMakerBaseImage = () => {
     <div class="flex flex-col items-center justify-center w-[960px] min-h-[600px] p-8">
       {isImageSelected
         ? (
-          <ul class="w-full relative">
+          <ul class="w-full relative" id="ogp-base-image">
             {textBoxes.map((textBox) => {
               const onPointerMove = (e: PointerEvent) => {
                 if (!isDraggable.value) return;
@@ -101,7 +101,7 @@ const OGPMakerBaseImage = () => {
                       class="bg-transparent resize-none overflow-hidden"
                       style={`field-sizing:content;font-size:${textBox.fontSize}px;font-weight:${
                         toFontWeightFromName(textBox.fontWeight)
-                      };color:${textBox.color};outline-width:2px;outline-color:${textBox.textBoxColor};`}
+                      };color:${textBox.fontColor};outline-width:2px;outline-color:${textBox.textBoxColor};`}
                       onInput={(e) =>
                         handleEditTextBoxText(textBox.id, {
                           text: e.currentTarget.value,

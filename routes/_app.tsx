@@ -9,7 +9,7 @@ export default function App({ Component }: PageProps) {
         <title>OGP画像めーかー</title>
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body>
+      <body class="font-biz-udgothic">
         <Component />
       </body>
     </html>
