@@ -9,7 +9,7 @@ import {
 import { SquareIcon } from "../icons/SquareIcon.tsx";
 import { randomColor } from "../../utils/ramdomColor.ts";
 
-const NEW_TEXT_BOX_BASE: Omit<TextBox, "id" | "textBoxColor"> = {
+const TEXT_BOX_BASE_VALUE: Omit<TextBox, "id" | "textBoxColor"> = {
   text: "タイトル",
   x: 64,
   y: 64,
@@ -32,7 +32,7 @@ const OGPMakerCustomizeBox = () => {
     setTextBoxes([...textBoxes, {
       id: id,
       textBoxColor: randomColor(),
-      ...NEW_TEXT_BOX_BASE,
+      ...TEXT_BOX_BASE_VALUE,
     }]);
     setSelectedTextBoxId(id);
   };
@@ -43,7 +43,7 @@ const OGPMakerCustomizeBox = () => {
     setSelectedTextBoxId(filteredTextBoxes[0]?.id);
   };
 
-  const handleEditTextBoxFontSize = (id: string, value: Partial<TextBox>) => {
+  const handleEditTextBox = (id: string, value: Partial<TextBox>) => {
     const textBox = textBoxes.find((textBox) => textBox.id === id);
     if (!textBox) return;
     setTextBoxes([
@@ -55,26 +55,14 @@ const OGPMakerCustomizeBox = () => {
     ]);
   };
 
-  const handleEditTextBoxFontWeight = (id: string, value: Partial<TextBox>) => {
+  const handleResetTextBox = (id: string) => {
     const textBox = textBoxes.find((textBox) => textBox.id === id);
     if (!textBox) return;
     setTextBoxes([
       ...textBoxes.filter((textBox) => textBox.id !== id),
       {
         ...textBox,
-        ...value,
-      },
-    ]);
-  };
-
-  const handleEditTextBoxColor = (id: string, value: Partial<TextBox>) => {
-    const textBox = textBoxes.find((textBox) => textBox.id === id);
-    if (!textBox) return;
-    setTextBoxes([
-      ...textBoxes.filter((textBox) => textBox.id !== id),
-      {
-        ...textBox,
-        ...value,
+        ...TEXT_BOX_BASE_VALUE,
       },
     ]);
   };
@@ -109,13 +97,22 @@ const OGPMakerCustomizeBox = () => {
                     [{selectedTextBox?.id.slice(0, 8)}]
                   </span>
                 </span>
-                <button
-                  type="button"
-                  class="text-sm px-2"
-                  onClick={() => handleDeleteTextBox(selectedTextBoxId)}
-                >
-                  削除
-                </button>
+                <div class="flex gap-2 px-2">
+                  <button
+                    type="button"
+                    class="text-sm"
+                    onClick={() => handleResetTextBox(selectedTextBoxId)}
+                  >
+                    リセット
+                  </button>
+                  <button
+                    type="button"
+                    class="text-sm"
+                    onClick={() => handleDeleteTextBox(selectedTextBoxId)}
+                  >
+                    削除
+                  </button>
+                </div>
               </div>
               <div class="grid grid-cols-1 divide-y">
                 <label class="flex items-center gap-4 p-2">
@@ -126,7 +123,7 @@ const OGPMakerCustomizeBox = () => {
                     min="0"
                     class="w-12"
                     onInput={(e) => {
-                      handleEditTextBoxFontSize(selectedTextBoxId, {
+                      handleEditTextBox(selectedTextBoxId, {
                         fontSize: Number(e.currentTarget.value),
                       });
                     }}
@@ -137,7 +134,7 @@ const OGPMakerCustomizeBox = () => {
                   <select
                     value={selectedTextBox?.fontWeight}
                     onInput={(e) => {
-                      handleEditTextBoxFontWeight(selectedTextBoxId, {
+                      handleEditTextBox(selectedTextBoxId, {
                         fontWeight: e.currentTarget
                           .value as TextBox["fontWeight"],
                       });
@@ -154,7 +151,7 @@ const OGPMakerCustomizeBox = () => {
                     type="color"
                     value={selectedTextBox?.color}
                     onInput={(e) => {
-                      handleEditTextBoxColor(selectedTextBoxId, {
+                      handleEditTextBox(selectedTextBoxId, {
                         color: e.currentTarget.value,
                       });
                     }}
