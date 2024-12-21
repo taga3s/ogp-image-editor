@@ -8,6 +8,7 @@ export type TextBox = {
   fontSize: number;
   fontWeight: "normal" | "medium" | "bold";
   color: string;
+  textBoxColor: string;
 };
 
 const store = signal<TextBox[]>([]);

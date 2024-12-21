@@ -7,8 +7,9 @@ import {
   selectedTextBoxIdSignal,
 } from "../../signals/selectedTextBoxIdSignal.ts";
 import { SquareIcon } from "../icons/SquareIcon.tsx";
+import { randomColor } from "../../utils/ramdomColor.ts";
 
-const NEW_TEXT_BOX: Omit<TextBox, "id"> = {
+const NEW_TEXT_BOX_BASE: Omit<TextBox, "id" | "textBoxColor"> = {
   text: "タイトル",
   x: 64,
   y: 64,
@@ -25,6 +26,22 @@ const OGPMakerCustomizeBox = () => {
   const selectedTextBox = textBoxes.find((textBox) => {
     return textBox.id === selectedTextBoxId;
   });
+
+  const handleAddTextBox = () => {
+    const id = crypto.randomUUID();
+    setTextBoxes([...textBoxes, {
+      id: id,
+      textBoxColor: randomColor(),
+      ...NEW_TEXT_BOX_BASE,
+    }]);
+    setSelectedTextBoxId(id);
+  };
+
+  const handleDeleteTextBox = (id: string) => {
+    const filteredTextBoxes = textBoxes.filter((textBox) => textBox.id !== id);
+    setTextBoxes(filteredTextBoxes);
+    setSelectedTextBoxId(filteredTextBoxes[0]?.id);
+  };
 
   const handleEditTextBoxFontSize = (id: string, value: Partial<TextBox>) => {
     const textBox = textBoxes.find((textBox) => textBox.id === id);
@@ -62,23 +79,12 @@ const OGPMakerCustomizeBox = () => {
     ]);
   };
 
-  const handleSetSelectedTextBoxId = (id: string) => {
-    setSelectedTextBoxId(id);
-  };
-
   return (
     <div class="w-[320px] h-96 p-4 border-2 shadow rounded-md">
       <button
         type="button"
         class="flex items-center gap-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-black font-bold rounded-md disabled:opacity-50"
-        onClick={() => {
-          const id = crypto.randomUUID();
-          setTextBoxes([...textBoxes, {
-            id: id,
-            ...NEW_TEXT_BOX,
-          }]);
-          handleSetSelectedTextBoxId(id);
-        }}
+        onClick={handleAddTextBox}
         disabled={selectedOgpTemplate === undefined}
       >
         <div class="w-5">
@@ -87,19 +93,29 @@ const OGPMakerCustomizeBox = () => {
         TextBox
       </button>
       <ul class="mt-4 flex flex-col gap-4">
-        {textBoxes.length
+        {textBoxes.length > 0
           ? (
-            <li class="outline outline-2 outline-cyan-700 rounded-md">
+            <li
+              class="rounded-md"
+              style={`outline: 2px solid ${selectedTextBox?.textBoxColor}`}
+            >
               <div class="flex justify-between items-center">
-                <span class="text-white bg-cyan-700 px-2 py-1 rounded-tl-md rounded-br-md">
+                <span
+                  class="text-white px-2 py-1 rounded-tl-md rounded-br-md"
+                  style={`background-color:${selectedTextBox?.textBoxColor}`}
+                >
                   TextBox{" "}
                   <span class="text-xs">
                     [{selectedTextBox?.id.slice(0, 8)}]
                   </span>
                 </span>
-                <span class="text-xs p-2">
-                  x: {selectedTextBox?.x}px, y: {selectedTextBox?.y}px
-                </span>
+                <button
+                  type="button"
+                  class="text-sm px-2"
+                  onClick={() => handleDeleteTextBox(selectedTextBoxId)}
+                >
+                  削除
+                </button>
               </div>
               <div class="grid grid-cols-1 divide-y">
                 <label class="flex items-center gap-4 p-2">
@@ -143,6 +159,7 @@ const OGPMakerCustomizeBox = () => {
                       });
                     }}
                   />
+                  <span>{selectedTextBox?.color}</span>
                 </label>
               </div>
             </li>

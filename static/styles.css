@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Your custom styles here */
+.focus-area:has(textarea:focus) {
+  .position-label {
+    display: block;
+  }
+}

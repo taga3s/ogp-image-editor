@@ -5,7 +5,7 @@ import {
 import {
   selectedTextBoxIdSignal,
 } from "../../signals/selectedTextBoxIdSignal.ts";
-import { toFontWeightFromName } from "../../style-utils/font-weight.ts";
+import { toFontWeightFromName } from "../../utils/font-weight.ts";
 import { selectedOgpTemplateSignal } from "../../signals/ogpTemplateSignal.ts";
 import { useSignal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
@@ -52,20 +52,20 @@ const OGPMakerBaseImage = () => {
   };
 
   useEffect(() => {
-    const handleMouseDown = () => {
+    const handlePointerDown = () => {
       isDraggable.value = true;
     };
 
-    const handleMouseUp = () => {
+    const handlePointerUp = () => {
       isDraggable.value = false;
     };
 
-    document.addEventListener("mouseup", handleMouseUp);
-    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("pointerup", handlePointerUp);
+    document.addEventListener("pointerdown", handlePointerDown);
 
     return () => {
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("pointerup", handlePointerUp);
+      document.removeEventListener("pointerdown", handlePointerDown);
     };
   }, [isDraggable]);
 
@@ -77,7 +77,7 @@ const OGPMakerBaseImage = () => {
         ? (
           <ul class="w-full relative">
             {textBoxes.map((textBox) => {
-              const onMouseMove = (e: MouseEvent) => {
+              const onPointerMove = (e: PointerEvent) => {
                 if (!isDraggable.value) return;
                 handleEditTextBoxPosition(textBox.id, {
                   x: textBox.x + e.movementX,
@@ -90,15 +90,18 @@ const OGPMakerBaseImage = () => {
                   class={"absolute"}
                   style={`top:${textBox.y}px;left:${textBox.x}px;`}
                   key={textBox.id}
-                  onMouseMove={onMouseMove}
+                  onPointerMove={onPointerMove}
                 >
-                  <div>
+                  <div class="relative focus-area">
+                    <span class="absolute text-xs bottom-[-20px] left-0 hidden position-label">
+                      x: {textBox?.x}px, y: {textBox?.y}px
+                    </span>
                     {/* NOTE: The CSS property `field-size` is not widely available.*/}
                     <textarea
-                      class="bg-transparent outline-2 outline-cyan-700 resize-none overflow-hidden"
+                      class="bg-transparent resize-none overflow-hidden"
                       style={`field-sizing:content;font-size:${textBox.fontSize}px;font-weight:${
                         toFontWeightFromName(textBox.fontWeight)
-                      };color:${textBox.color};`}
+                      };color:${textBox.color};outline-width:2px;outline-color:${textBox.textBoxColor};`}
                       onInput={(e) =>
                         handleEditTextBoxText(textBox.id, {
                           text: e.currentTarget.value,
