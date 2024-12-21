@@ -92,12 +92,9 @@ const OGPMakerCustomizeBox = () => {
                   class="text-white px-2 py-1 rounded-tl-md rounded-br-md"
                   style={`background-color:${selectedTextBox?.textBoxColor}`}
                 >
-                  TextBox{" "}
-                  <span class="text-xs">
-                    [{selectedTextBox?.id.slice(0, 8)}]
-                  </span>
+                  TextBox
                 </span>
-                <div class="flex gap-2 px-2">
+                <div class="flex gap-4 px-4">
                   <button
                     type="button"
                     class="text-sm"
