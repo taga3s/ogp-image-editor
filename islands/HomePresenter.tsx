@@ -1,10 +1,10 @@
-import { OGPMaker } from "../components/OGPMaker/OGPMaker.tsx";
+import { OGPEditor } from "../components/OGPEditor/OGPEditor.tsx";
 import { OGPTemplate } from "../components/OGPTemplate/OGPTemplate.tsx";
 
 const HomePresenter = () => {
   return (
     <div class="flex flex-col">
-      <OGPMaker />
+      <OGPEditor />
       <OGPTemplate />
     </div>
   );

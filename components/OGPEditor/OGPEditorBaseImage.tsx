@@ -10,7 +10,7 @@ import { selectedOgpTemplateSignal } from "../../signals/ogpTemplateSignal.ts";
 import { useSignal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
 
-const OGPMakerBaseImage = () => {
+const OGPEditorBaseImage = () => {
   const { selectedOgpTemplate } = selectedOgpTemplateSignal();
   const { textBoxes, setTextBoxes } = textBoxesSignal();
   const { setSelectedTextBoxId } = selectedTextBoxIdSignal();
@@ -116,4 +116,4 @@ const OGPMakerBaseImage = () => {
   );
 };
 
-export { OGPMakerBaseImage };
+export { OGPEditorBaseImage };

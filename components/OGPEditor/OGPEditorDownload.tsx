@@ -2,7 +2,7 @@ import { selectedOgpTemplateSignal } from "../../signals/ogpTemplateSignal.ts";
 import { textBoxesSignal } from "../../signals/textBoxesSignal.ts";
 import { buildOGPImageURL, downloadOGPImage } from "./image.ts";
 
-const OGPMakerDownload = () => {
+const OGPEditorDownload = () => {
   const { selectedOgpTemplate } = selectedOgpTemplateSignal();
   const { textBoxes } = textBoxesSignal();
 
@@ -37,4 +37,4 @@ const OGPMakerDownload = () => {
   );
 };
 
-export { OGPMakerDownload };
+export { OGPEditorDownload };

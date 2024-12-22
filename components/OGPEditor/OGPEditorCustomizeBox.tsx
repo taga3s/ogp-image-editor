@@ -18,7 +18,7 @@ const TEXT_BOX_BASE_VALUE: Omit<TextBox, "id" | "textBoxColor"> = {
   fontColor: "#000000",
 };
 
-const OGPMakerCustomizeBox = () => {
+const OGPEditorCustomizeBox = () => {
   const { selectedOgpTemplate } = selectedOgpTemplateSignal();
   const { textBoxes, setTextBoxes } = textBoxesSignal();
   const { selectedTextBoxId, setSelectedTextBoxId } = selectedTextBoxIdSignal();
@@ -164,4 +164,4 @@ const OGPMakerCustomizeBox = () => {
   );
 };
 
-export { OGPMakerCustomizeBox };
+export { OGPEditorCustomizeBox };
