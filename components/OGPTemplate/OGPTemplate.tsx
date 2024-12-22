@@ -11,7 +11,7 @@ const OGP_TEMPLATE_DATA: OGPTemplateData[] = [
   },
 ];
 
-const OGPTemplateList = () => {
+const OGPTemplate = () => {
   const { selectedOgpTemplate, setSelectedOgpTemplate } =
     selectedOgpTemplateSignal();
   return (
@@ -31,4 +31,4 @@ const OGPTemplateList = () => {
   );
 };
 
-export { OGPTemplateList };
+export { OGPTemplate };

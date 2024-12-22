@@ -17,22 +17,7 @@ const OGPMakerBaseImage = () => {
 
   const isDraggable = useSignal<boolean>(false);
 
-  const handleEditTextBoxText = (id: string, value: Partial<TextBox>) => {
-    const textBox = textBoxes.find((textBox) => textBox.id === id);
-    if (!textBox) {
-      return;
-    }
-
-    setTextBoxes([
-      ...textBoxes.filter((textBox) => textBox.id !== id),
-      {
-        ...textBox,
-        ...value,
-      },
-    ]);
-  };
-
-  const handleEditTextBoxPosition = (id: string, value: Partial<TextBox>) => {
+  const handleEditTextBox = (id: string, value: Partial<TextBox>) => {
     const textBox = textBoxes.find((textBox) => textBox.id === id);
     if (!textBox) {
       return;
@@ -79,7 +64,7 @@ const OGPMakerBaseImage = () => {
             {textBoxes.map((textBox) => {
               const onPointerMove = (e: PointerEvent) => {
                 if (!isDraggable.value) return;
-                handleEditTextBoxPosition(textBox.id, {
+                handleEditTextBox(textBox.id, {
                   x: textBox.x + e.movementX,
                   y: textBox.y + e.movementY,
                 });
@@ -103,7 +88,7 @@ const OGPMakerBaseImage = () => {
                         toFontWeightFromName(textBox.fontWeight)
                       };color:${textBox.fontColor};outline-width:2px;outline-color:${textBox.textBoxColor};`}
                       onInput={(e) =>
-                        handleEditTextBoxText(textBox.id, {
+                        handleEditTextBox(textBox.id, {
                           text: e.currentTarget.value,
                         })}
                       onFocus={() => {
