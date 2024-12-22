@@ -1,1 +1,1 @@
-# ogp-image-maker
+# ogp-image-editor
