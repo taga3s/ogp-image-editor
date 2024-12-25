@@ -2,9 +2,12 @@ import type { TextBox } from "../../signals/textBoxesSignal.ts";
 
 const padding = 16;
 
+export type ImageType = "png" | "jpeg";
+
 const buildOGPImageURL = (
   ogpTemplate: string,
   textBoxes: TextBox[],
+  imageType: ImageType,
 ): string | undefined => {
   const ogpBaseImage = document.getElementById("ogp-base-image");
   if (!ogpBaseImage) {
@@ -47,13 +50,13 @@ const buildOGPImageURL = (
     }
   }
 
-  return canvas.toDataURL("image/png");
+  return canvas.toDataURL(`image/${imageType}`, 1.0);
 };
 
-const downloadOGPImage = (ogpImageURL: string): void => {
+const downloadOGPImage = (ogpImageURL: string, type: ImageType): void => {
   const link = document.createElement("a");
   link.href = ogpImageURL;
-  link.download = "ogp.png";
+  link.download = `ogp.${type}`;
   link.click();
 };
 
