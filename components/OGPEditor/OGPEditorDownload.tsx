@@ -6,7 +6,7 @@ const OGPEditorDownload = () => {
   const { selectedOgpTemplate } = selectedOgpTemplateSignal();
   const { textBoxes } = textBoxesSignal();
 
-  const handleDownload = () => {
+  const handleClickDownload = () => {
     if (!selectedOgpTemplate) {
       alert("テンプレートを選択する必要があります");
       return;
@@ -29,7 +29,7 @@ const OGPEditorDownload = () => {
       <button
         type="button"
         class="bg-cyan-700 text-xl text-white font-bold p-4 rounded-md"
-        onClick={handleDownload}
+        onClick={handleClickDownload}
       >
         ダウンロード
       </button>

@@ -9,13 +9,19 @@ import {
 import { SquareIcon } from "../icons/SquareIcon.tsx";
 import { randomColor } from "../../utils/ramdomColor.ts";
 
-const TEXT_BOX_BASE_VALUE: Omit<TextBox, "id" | "textBoxColor"> = {
-  text: "タイトル",
-  x: 64,
-  y: 64,
-  fontSize: 32,
-  fontWeight: "bold",
-  fontColor: "#000000",
+const constructTextBox = (
+  textBox: Pick<TextBox, "id" | "textBoxColor">,
+): TextBox => {
+  return {
+    id: textBox.id,
+    text: "タイトル",
+    textBoxColor: textBox.textBoxColor,
+    x: 64,
+    y: 64,
+    fontSize: 32,
+    fontWeight: "bold",
+    fontColor: "#000000",
+  };
 };
 
 const OGPEditorCustomizeBox = () => {
@@ -27,23 +33,22 @@ const OGPEditorCustomizeBox = () => {
     return textBox.id === selectedTextBoxId;
   });
 
-  const handleAddTextBox = () => {
+  const handleClickAddTextBox = () => {
     const id = crypto.randomUUID();
-    setTextBoxes([...textBoxes, {
-      id: id,
-      textBoxColor: randomColor(),
-      ...TEXT_BOX_BASE_VALUE,
-    }]);
+    setTextBoxes([
+      ...textBoxes,
+      constructTextBox({ id, textBoxColor: randomColor() }),
+    ]);
     setSelectedTextBoxId(id);
   };
 
-  const handleDeleteTextBox = (id: string) => {
+  const handleClickDeleteTextBox = (id: string) => {
     const filteredTextBoxes = textBoxes.filter((textBox) => textBox.id !== id);
     setTextBoxes(filteredTextBoxes);
     setSelectedTextBoxId(filteredTextBoxes[0]?.id);
   };
 
-  const handleEditTextBox = (id: string, value: Partial<TextBox>) => {
+  const handleInputEditTextBox = (id: string, value: Partial<TextBox>) => {
     const textBox = textBoxes.find((textBox) => textBox.id === id);
     if (!textBox) return;
     setTextBoxes([
@@ -55,14 +60,17 @@ const OGPEditorCustomizeBox = () => {
     ]);
   };
 
-  const handleResetTextBox = (id: string) => {
+  const handleClickResetTextBox = (id: string) => {
     const textBox = textBoxes.find((textBox) => textBox.id === id);
     if (!textBox) return;
     setTextBoxes([
       ...textBoxes.filter((textBox) => textBox.id !== id),
       {
         ...textBox,
-        ...TEXT_BOX_BASE_VALUE,
+        ...constructTextBox({
+          id: textBox.id,
+          textBoxColor: textBox.textBoxColor,
+        }),
       },
     ]);
   };
@@ -72,7 +80,7 @@ const OGPEditorCustomizeBox = () => {
       <button
         type="button"
         class="flex items-center gap-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-black font-bold rounded-md disabled:opacity-50"
-        onClick={handleAddTextBox}
+        onClick={handleClickAddTextBox}
         disabled={selectedOgpTemplate === undefined}
       >
         <div class="w-5">
@@ -98,14 +106,14 @@ const OGPEditorCustomizeBox = () => {
                   <button
                     type="button"
                     class="text-sm"
-                    onClick={() => handleResetTextBox(selectedTextBoxId)}
+                    onClick={() => handleClickResetTextBox(selectedTextBoxId)}
                   >
                     リセット
                   </button>
                   <button
                     type="button"
                     class="text-sm"
-                    onClick={() => handleDeleteTextBox(selectedTextBoxId)}
+                    onClick={() => handleClickDeleteTextBox(selectedTextBoxId)}
                   >
                     削除
                   </button>
@@ -120,7 +128,7 @@ const OGPEditorCustomizeBox = () => {
                     min="0"
                     class="w-12"
                     onInput={(e) => {
-                      handleEditTextBox(selectedTextBoxId, {
+                      handleInputEditTextBox(selectedTextBoxId, {
                         fontSize: Number(e.currentTarget.value),
                       });
                     }}
@@ -131,7 +139,7 @@ const OGPEditorCustomizeBox = () => {
                   <select
                     value={selectedTextBox?.fontWeight}
                     onInput={(e) => {
-                      handleEditTextBox(selectedTextBoxId, {
+                      handleInputEditTextBox(selectedTextBoxId, {
                         fontWeight: e.currentTarget
                           .value as TextBox["fontWeight"],
                       });
@@ -148,7 +156,7 @@ const OGPEditorCustomizeBox = () => {
                     type="color"
                     value={selectedTextBox?.fontColor}
                     onInput={(e) => {
-                      handleEditTextBox(selectedTextBoxId, {
+                      handleInputEditTextBox(selectedTextBoxId, {
                         fontColor: e.currentTarget.value,
                       });
                     }}

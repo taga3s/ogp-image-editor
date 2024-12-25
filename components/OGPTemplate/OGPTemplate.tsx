@@ -14,6 +14,11 @@ const OGP_TEMPLATE_DATA: OGPTemplateData[] = [
 const OGPTemplate = () => {
   const { selectedOgpTemplate, setSelectedOgpTemplate } =
     selectedOgpTemplateSignal();
+
+  const handleClickOgpTemplate = (ogpTemplate: OGPTemplateData) => {
+    setSelectedOgpTemplate(ogpTemplate);
+  };
+
   return (
     <div class="p-6 mx-auto max-w-[800px] w-full border-2 shadow rounded-md">
       <ul class="flex items-center gap-8">
@@ -23,7 +28,7 @@ const OGPTemplate = () => {
             numbering={item.id}
             imgSrc={item.imgSrc}
             isSelected={selectedOgpTemplate?.id === item.id}
-            onClick={() => setSelectedOgpTemplate(item)}
+            onClick={() => handleClickOgpTemplate(item)}
           />
         ))}
       </ul>

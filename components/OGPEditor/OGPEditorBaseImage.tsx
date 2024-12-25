@@ -5,7 +5,7 @@ import {
 import {
   selectedTextBoxIdSignal,
 } from "../../signals/selectedTextBoxIdSignal.ts";
-import { toFontWeightFromName } from "../../utils/font-weight.ts";
+import { toFontWeightFromName } from "../../utils/fontWeight.ts";
 import { selectedOgpTemplateSignal } from "../../signals/ogpTemplateSignal.ts";
 import { useSignal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
