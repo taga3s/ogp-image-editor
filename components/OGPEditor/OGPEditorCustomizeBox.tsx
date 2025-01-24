@@ -76,7 +76,7 @@ const OGPEditorCustomizeBox = () => {
   };
 
   return (
-    <div class="w-[320px] h-96 p-4 border-2 shadow rounded-md">
+    <div class="w-[320px] h-96 p-4">
       <button
         type="button"
         class="flex items-center gap-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-black font-bold rounded-md disabled:opacity-50"

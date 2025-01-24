@@ -20,19 +20,17 @@ const OGPTemplate = () => {
   };
 
   return (
-    <div class="p-6 mx-auto max-w-[800px] w-full border-2 shadow rounded-md">
-      <ul class="flex items-center gap-8">
-        {OGP_TEMPLATE_DATA.map((item) => (
-          <OGPTemplateItem
-            key={item.id}
-            numbering={item.id}
-            imgSrc={item.imgSrc}
-            isSelected={selectedOgpTemplate?.id === item.id}
-            onClick={() => handleClickOgpTemplate(item)}
-          />
-        ))}
-      </ul>
-    </div>
+    <ul class="flex flex-col items-center gap-8 w-full p-6 border-t-2">
+      {OGP_TEMPLATE_DATA.map((item) => (
+        <OGPTemplateItem
+          key={item.id}
+          numbering={item.id}
+          imgSrc={item.imgSrc}
+          isSelected={selectedOgpTemplate?.id === item.id}
+          onClick={() => handleClickOgpTemplate(item)}
+        />
+      ))}
+    </ul>
   );
 };
 
